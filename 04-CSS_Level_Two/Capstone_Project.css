@@ -1,0 +1,36 @@
+body{
+    font-family: 'Merriweather', serif;
+    text-align: center;
+
+    background-color: #383961;
+    border: 40px solid #5F758E;
+    border-top: 0px;
+    margin: 0px;
+}
+
+.centerText{
+    background-color: #5F758E;
+}
+
+p{
+    padding-top: 5%;  
+    padding-right: 20%;
+    padding-left: 20%;
+}
+
+form {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#sub{
+    background-color: goldenrod;
+    height: 80px;
+    width: 150px;
+    margin: 4px;
+    margin-top: 12px;
+    font-size: 1em;
+
+    border-radius: 25px;
+}
+

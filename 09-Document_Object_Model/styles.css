@@ -1,0 +1,12 @@
+table, th, td{
+    border: 3px black solid;
+    /* padding: 55px; */
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 35px;
+}
+td {
+    height: 120px;
+    width: 120px;
+    text-align: center;
+}

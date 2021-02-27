@@ -1,0 +1,36 @@
+h1{
+    font-family: 'Merriweather', serif;
+    text-align: center;
+}
+
+.art{
+    margin: auto;
+}
+
+td{
+    background-color: black;
+    height: 300px;
+    width: 150px;
+    border: 6px solid white;
+}
+
+#one{
+    background-color:#3B1F2B ;
+}
+
+#two{
+    background-color:#DB162F ;
+}
+
+#three{
+    background-color:#DBDFAC ;
+}
+
+#four{
+    background-color:#5F758E ;
+}
+
+#five{
+    background-color:#383961 ;
+}
+
