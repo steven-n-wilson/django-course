@@ -32,6 +32,13 @@ from random import shuffle
 SUITE = 'H D S C'.split()
 RANKS = '2 3 4 5 6 7 8 9 10 J Q K A'.split()
 
+letter_ranks = {
+    "J": 10,
+    "Q": 11,
+    "K": 12,
+    "A": 1
+}
+
 
 class Deck:
     """
@@ -115,12 +122,14 @@ def war(p1_war, p2_war):
             p1_count += 1
         elif p1 < p2:
             p2_count += 1
+        else:
+            pass
 
     if p1_count > p2_count:
         return "p1"
 
 
-def add_war_cards(player_hand):
+def add_war_cards(player, player_hand):
     player_hand.add(p1_turn)
     player_hand.add(p2_turn)
 
@@ -130,6 +139,18 @@ def add_war_cards(player_hand):
     for i in p2_war:
         player_hand.add(i)
 
+    return player.check()
+
+
+def get_num(p_turn):
+
+    num = p_turn[1:]
+
+    try:
+        return int(num)
+    except:
+        return int(letter_ranks[num])
+
 
 ######################
 #### GAME PLAY #######
@@ -137,6 +158,7 @@ def add_war_cards(player_hand):
 print("Welcome to War, let's begin...")
 
 # Use the 3 classes along with some logic to play a game of war!
+
 
 setup = False
 playing = True
@@ -156,43 +178,40 @@ while playing:
         setup = True
 
     p1_turn = player1_hand.remove()
+    playing = player1.check()
     print(f"{player1.name}'s card is {p1_turn}")
 
     p2_turn = player2_hand.remove()
+    playing = player2.check()
     print(f"{player2.name}'s card is {p2_turn}")
 
-    try:
+    if get_num(p1_turn) == get_num(p2_turn):
+        print("\nWAR!")
 
-        if int(p1_turn[1:]) == int(p2_turn[1:]):
-            print("\nWAR!")
+        p1_war = [player1_hand.remove() for i in range(3)]
+        print(f"{player1.name}'s cards are {p1_war}")
 
-            p1_war = [player1_hand.remove() for i in range(3)]
-            print(f"{player1.name}'s cards are {p1_war}")
+        p2_war = [player2_hand.remove() for i in range(3)]
+        print(f"{player2.name}'s cards are {p2_war}")
 
-            p2_war = [player2_hand.remove() for i in range(3)]
-            print(f"{player2.name}'s cards are {p2_war}")
+        p1_war_vals = [get_num(i) for i in p1_war]
+        p2_war_vals = [get_num(i) for i in p2_war]
+        war_winner = war(p1_war_vals, p2_war_vals)
 
-            war_winner = war(p1_war, p2_war)
-
-            if war_winner == "p1":
-                add_war_cards(player1_hand)
-                playing = player1.check()
-                print(f"{player1.name} wins this war!")
-            else:
-                add_war_cards(player2_hand)
-                playing = player2.check()
-                print(f"{player2.name} wins this war!")
-
-        elif int(p1_turn[1:]) > int(p2_turn[1:]):
-            player1_hand.add(p2_turn)
-            playing = player1.check()
-            print(f"{player1.name} keeps cards!")
+        if war_winner == "p1":
+            playing = add_war_cards(player1, player1_hand)
+            print(f"{player1.name} wins this war!")
         else:
-            player2_hand.add(p1_turn)
-            playing = player2.check()
-            print(f"{player2.name} keeps cards!")
+            playing = add_war_cards(player2, player2_hand)
+            print(f"{player2.name} wins this war!")
 
-    except:
-        pass
+    elif get_num(p1_turn) > get_num(p2_turn):
+        player1_hand.add(p2_turn)
+        playing = player1.check()
+        print(f"{player1.name} keeps cards!")
+    else:
+        player2_hand.add(p1_turn)
+        playing = player2.check()
+        print(f"{player2.name} keeps cards!")
 
-    playing = False
+    # playing = False
